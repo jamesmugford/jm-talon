@@ -51,8 +51,11 @@ center: key(alt-2)
 
 # f14 = some auto hotkey debug test
 
-key(f15): bcore.repeat_phrase(1)
+# key(f15): bcore.repeat_phrase(1)
 
 #	Stream Deck
-key(f16): speech.toggle()
-
+key(f2): speech.toggle() 
+# alt gr options: altgr | alt-gr | ralt | ctrl-alt
+# right super options: rwin | rsuper | super-r
+# menu key (right of super): menu
+# right ctrl options: rctrl | ctrl-r
