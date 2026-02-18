@@ -15,6 +15,9 @@ settings():
     # The default amount used when scrolling continuously
     user.mouse_continuous_scroll_amount = 80
 
+    # Forward Talon key() through dotoolc when enabled
+    user.dotool_key_forwarding = 0
+
     # Stop continuous scroll/gaze scroll with a pop
     user.mouse_enable_pop_stops_scroll = 1
 
