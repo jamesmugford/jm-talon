@@ -1,3 +1,4 @@
+# Dotool key name mappings; extend as needed.
 MODIFIER_ALIASES = {
     "ctrl": "ctrl",
     "control": "ctrl",
