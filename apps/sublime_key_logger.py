@@ -1,3 +1,5 @@
+"""Sublime-only Talon key translation via dotool."""
+
 from talon import Context
 import subprocess
 import sys
@@ -17,6 +19,7 @@ app: sublime_text
 
 
 def _normalize_key_name(key: str) -> str:
+    """Normalize Talon key names to dotool-compatible names."""
     if not key:
         return key
     if key in SYMBOL_KEY_MAP:
@@ -29,26 +32,29 @@ def _normalize_key_name(key: str) -> str:
     return KEY_NAME_MAP.get(key, key)
 
 
-def _split_modifiers(chord: str) -> tuple[list[str], str]:
+def _split_modifiers(chord: str) -> tuple[tuple[str, ...], str]:
+    """Split a chord into modifiers and the base key."""
     parts = chord.split("-")
-    mods = []
-    key_parts = []
+    mods: list[str] = []
+    key_parts: list[str] = []
     for part in parts:
         if not key_parts and part in MODIFIER_ALIASES:
             mods.append(MODIFIER_ALIASES[part])
         else:
             key_parts.append(part)
-    return mods, "-".join(key_parts)
+    return tuple(mods), "-".join(key_parts)
 
 
-def _build_chord(mods: list[str], key: str) -> str:
-    parts = mods[:]
+def _build_chord(mods: tuple[str, ...], key: str) -> str:
+    """Build a dotool chord string from modifiers and a key."""
+    parts = list(mods)
     if key:
         parts.append(key)
     return "+".join(parts)
 
 
-def _mods_only_actions(mods: list[str]) -> list[str]:
+def _mods_only_actions(mods: tuple[str, ...]) -> list[str]:
+    """Emit down/up actions for modifier-only chords."""
     if not mods:
         return []
     actions = [f"keydown {mod}" for mod in mods]
@@ -57,7 +63,7 @@ def _mods_only_actions(mods: list[str]) -> list[str]:
 
 
 def _parse_suffix(chord: str) -> tuple[str, str, int]:
-    # Handle :down/:up and :N suffixes.
+    """Parse :down/:up or :N suffixes for a chord."""
     if ":" not in chord:
         return chord, "key", 1
     base, suffix = chord.rsplit(":", 1)
@@ -70,22 +76,24 @@ def _parse_suffix(chord: str) -> tuple[str, str, int]:
     return chord, "key", 1
 
 
-def _normalize_alpha_key(key: str, mods: list[str]) -> str:
+def _normalize_alpha_key(key: str, mods: tuple[str, ...]) -> tuple[tuple[str, ...], str]:
+    """Normalize single-letter uppercase keys without mutating inputs."""
     if key and len(key) == 1 and key.isalpha() and key.isupper():
-        if "shift" not in mods:
-            mods.append("shift")
-        return key.lower()
-    return key
+        if "shift" in mods:
+            return mods, key.lower()
+        return mods + ("shift",), key.lower()
+    return mods, key
 
 
 def _dotool_actions_for_chord(chord: str) -> list[str]:
+    """Convert a single Talon chord to dotool actions."""
     chord = chord.strip()
     if not chord:
         return []
 
     base, action, repeat = _parse_suffix(chord)
     mods, key = _split_modifiers(base)
-    key = _normalize_alpha_key(key, mods)
+    mods, key = _normalize_alpha_key(key, mods)
     key = _normalize_key_name(key)
 
     if not key:
@@ -100,7 +108,7 @@ def _dotool_actions_for_chord(chord: str) -> list[str]:
 
 
 def _talon_key_to_dotool_actions(key_spec: str) -> list[str]:
-    # Split sequences like "ctrl-, ctrl-f" into dotool actions.
+    """Convert a Talon key spec into dotool actions."""
     return [
         action
         for chord in key_spec.split()
@@ -112,6 +120,7 @@ def _talon_key_to_dotool_actions(key_spec: str) -> list[str]:
 class MainActions:
     @staticmethod
     def key(key: str):
+        """Log and forward Talon key specs through dotoolc."""
         print(f"sublime key: {key!r}", file=sys.stderr, flush=True)
         try:
             actions = _talon_key_to_dotool_actions(key)

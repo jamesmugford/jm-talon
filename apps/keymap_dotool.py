@@ -1,3 +1,5 @@
+"""Dotool key mapping tables used by Talon key translation."""
+
 # Dotool key name mappings; extend as needed.
 MODIFIER_ALIASES = {
     "ctrl": "ctrl",
