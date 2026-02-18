@@ -1,18 +1,5 @@
 -
-
-work next: key(ctrl-super-right)
-work last: key(ctrl-super-left)
-
-
 enter: key(enter)
-
-lock windows: key(super-l)
-
-invert: key(super-alt-n)
-
-# sleep: key(plus)
-
-mouse: key(keypad_5)
 
 switch:
 	user.mouse_toggle_control_mouse()
@@ -29,13 +16,6 @@ parrot(tut):
 
 dredge: key(alt-tab)
 
-#	dictation start: key(alt-p)
-#	dictation stop: key(alt-o)
-
-track: key(f9)
-
-bulk message: key(f13)
-
 #	KinesicMouse
 pause | ram: key(alt-1)
 center: key(alt-2)
@@ -46,10 +26,7 @@ center: key(alt-2)
 #test: key(shift-alt-4)
 
 
-
 # Function key hotkeyb mappings
-
-# f14 = some auto hotkey debug test
 
 # key(f15): bcore.repeat_phrase(1)
 
