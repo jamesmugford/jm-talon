@@ -4,7 +4,7 @@ from talon import Context, Module, actions, settings
 import subprocess
 import sys
 
-from .key_translate_dotool import KeySpec, talon_key_to_dotool_actions
+from .dotool_translate import KeySpec, talon_key_to_dotool_actions
 
 mod = Module()
 mod.setting(

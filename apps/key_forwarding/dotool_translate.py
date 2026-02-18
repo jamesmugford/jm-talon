@@ -13,7 +13,7 @@ from dataclasses import dataclass
 import re
 from typing import Callable
 
-from .keymap_dotool import KEY_NAME_MAP, MODIFIER_ALIASES, SYMBOL_KEY_MAP
+from .dotool_keymap import KEY_NAME_MAP, MODIFIER_ALIASES, SYMBOL_KEY_MAP
 
 KeySpec = str
 DotoolAction = str
