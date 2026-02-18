@@ -8,10 +8,10 @@ from .dotool_translate import KeySpec, talon_key_to_dotool_actions
 
 mod = Module()
 mod.setting(
-    "dotool_key_forwarding",
+    "key_forwarding_enabled",
     type=bool,
     default=False,
-    desc="Forward Talon key() through dotoolc (global).",
+    desc="Forward Talon key() through external backend (global).",
 )
 
 ctx = Context()
@@ -26,7 +26,7 @@ class MainActions:
         Args:
             key: Talon key spec string.
         """
-        if not settings.get("user.dotool_key_forwarding"):
+        if not settings.get("user.key_forwarding_enabled"):
             actions.next(key)
             return
         print(f"dotool key: {key!r}", file=sys.stderr, flush=True)
