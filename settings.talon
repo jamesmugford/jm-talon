@@ -15,9 +15,6 @@ settings():
     # The default amount used when scrolling continuously
     user.mouse_continuous_scroll_amount = 80
 
-    # Forward Talon key() through external backend when enabled
-    user.key_forwarding_enabled = 1
-
     # Enable pop click with 'control mouse' mode
     user.mouse_enable_pop_click = 1
 
