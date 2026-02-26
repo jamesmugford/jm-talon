@@ -1,4 +1,4 @@
-# Override community wake phrases (non-Dragon only)
+# Override community wake/sleep phrases (non-Dragon only)
 
 mode: command
 mode: dictation
@@ -8,6 +8,15 @@ not tag: user.deep_sleep
 -
 ^(wake up)+$: skip()
 ^talon wake [<phrase>]$: skip()
+
+mode: command
+mode: dictation
+mode: sleep
+not speech.engine: dragon
+-
+^go to sleep [<phrase>]$: skip()
+^talon sleep [<phrase>]$: skip()
+^sleep all [<phrase>]$: skip()
 
 mode: sleep
 not tag: user.deep_sleep

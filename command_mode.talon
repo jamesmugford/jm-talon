@@ -5,9 +5,7 @@ switch:
 	user.mouse_toggle_control_mouse()
 	user.mouse_toggle_zoom_mouse()
 
-snore:
-	speech.disable()
-	app.notify("Talon Sleep")
+snore: skip()
 
 parrot(tut):
 	print("tut again")
