@@ -1,6 +1,9 @@
 from talon import Context, Module, actions, cron
 
-import winsound
+try:
+    import winsound
+except ImportError:
+    winsound = None
 
 ctx = Context()
 mod = Module()
@@ -9,7 +12,6 @@ mod = Module()
 class Actions:
 
     def play_beep():
-       """Switches the parrot mode around"""
-       winsound.Beep(1000, 500)
-       return
-
+        """Switches the parrot mode around"""
+        if winsound:
+            winsound.Beep(1000, 500)
