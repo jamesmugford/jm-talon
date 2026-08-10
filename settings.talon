@@ -56,4 +56,8 @@ settings():
 # Uncomment this to enable the curse yes/curse no commands (show hide mouse cursor). See issue #688.
 # tag(): user.mouse_cursor_commands_enable
 
-tag(): user.i3wm
+# Allow numbers to be spoken without the "numb" prefix.
+tag(): user.unprefixed_numbers
+
+# Enable only on i3; this system is Hyprland/Omarchy.
+# tag(): user.i3wm
